@@ -1,36 +1,11 @@
 import Vue from 'vue'
-import { mount, shallowMount } from '@vue/test-utils'
+import { mount } from '@vue/test-utils'
+import { renderToString } from '@vue/server-test-utils'
 import { createStore } from 'redux'
 import connect from '../src/connect.js'
 
-// temporary to get everything up and running
-describe('setup', () => {
-  it('should be able to test vue components', () => {
-
-    const dummyTemplate = '<h1>dummy</h1>'
-    const dummyOpts = {
-      data: function(){
-        return {
-          count: 1
-        }
-      },
-      template: dummyTemplate
-    }
-
-    let wrapper = mount(dummyOpts)
-    // console.log(wrapper.vm) // whats in a vue
-
-    expect(wrapper.html()).toBe(dummyTemplate)
-  })
-
-  it('should be able to test redux store', () => {
-    const store = createStore(() => ({ name: 'Billy' }))
-    expect( store.getState().name ).toBe('Billy')
-  })
-})
-
-// actual test are to be placed here
 describe('connect', () => {
+
   it('should render child component', () => {
     // arrange
     const store = createStore( () => ({}) )
@@ -65,4 +40,23 @@ describe('connect', () => {
     // assert
     expect(mounted.props().store.getState().name).toBe(expected)
   })
+
+  it('should be able to render with template', () => {
+    // arrange
+    const store = createStore( () => ({}) )
+    const dummyComponent = Vue.component('Dummy', { 
+      template: '<h1>billy</h1>'
+    })
+    // act
+    const connectedComponent = connect()(dummyComponent)
+    var result = renderToString(connectedComponent, {
+      propsData: { store: store }
+    })
+    // assert
+    expect(result).toContain('<h1')
+    expect(result).toContain('billy')
+    expect(result).toContain('</h1>')
+  })
+
+  // todo: write tests for mapStateToProps, mapDispatchToProps and triggering rerendering for state change
 })
