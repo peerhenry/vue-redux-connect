@@ -1,8 +1,81 @@
 # vue-redux-connect
-Use connect to create a connected component by mapping the state and dispatch function of a store to component props.
 
-`const connectedComponent = connect(mapStateToProps, mapDispatchToProps)(MyComponent)`
+This module provides a function `connect` that can be used to create a Vue component that responds to state changes in a Redux store. The component can also dispatch actions to the store. 
 
-Both `mapStateToProps` and `mapDispatchToProps` are optional parameters.
+This package is inspired by [react-redux](https://github.com/reduxjs/react-redux).
 
-Make sure to pass the redux store as a prop to the connected component.
+An alternative to this package is [redux-vue-connect](https://github.com/itsazzad/redux-vue-connect).
+
+## Installation
+`npm install --save vue-redux-connect`, or the short version `npm i -S vue-redux-connect`.
+
+## Usage
+
+In your source code, import the function `connect` using `import { connect } from 'vue-redux-connect'`. Define a function that maps the state of your store to component props `mapStateToProps`. Now you can write:
+
+`const connectedComponent = connect(mapStateToProps)(myComponent)`.
+
+If the component also needs to dispatch actions on the store, you can define a function `mapDispatchToProps` and pass it as a second parameter in connect.
+
+`const connectedComponent = connect(mapStateToProps, mapDispatchToProps)(myComponent)`.
+
+## Example
+
+This example describes a basic store that has an integer as its state, and handles a single action of type 'increment'.
+
+`store.js`
+```js
+import { createStore }  from 'redux'
+const reducer = ( state = 0, action ) => {
+  if(action.type == 'increment') return state + 1
+  return state
+}
+export default createStore( reducer );
+```
+
+`Counter.vue`
+```Vue
+<template>
+  <div>
+    <h1>Value: {{ number }}</h1>
+    <button @click="increment">Increment</button>
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    number: Number,
+    increment: Function
+  }
+}
+</script>
+```
+
+`App.vue`
+```Vue
+<template>
+  <ConnectedCounter :store="store" />
+</template>
+
+<script>
+import store from './store.js'
+import Counter from './Counter.vue'
+import { connect } from 'vue-redux-connect'
+
+const mapStateToProps = ( state ) => ({ number: state })
+const mapDispatchToProps = ( dispatch ) => ({ increment: () => dispatch({ type: 'increment' }) })
+const connectedCounter = connect(mapStateToProps, mapDispatchToProps)(Counter)
+
+export default {
+  components: { 
+    'ConnectedCounter': connectedCounter
+  },
+  data: function () { 
+    return {
+      store: store
+    }
+  }
+}
+</script>
+```

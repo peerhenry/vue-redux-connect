@@ -21,7 +21,7 @@ export default (mapStateToProps, mapDispatchToProps) => wrappedComponent => Vue.
         if(typeof mapStateToProps !== "function") console.error("mapStateToProps is not a function!")
         else
         {
-          const newStateProps = mapStateToProps(store.getState())
+          const newStateProps = mapStateToProps(this.store.getState())
           // prevent component update if state props didn't change.
           const componentShouldUpdate = JSON.stringify(newStateProps) !== JSON.stringify(this.stateProps)
           if(componentShouldUpdate){
@@ -35,7 +35,7 @@ export default (mapStateToProps, mapDispatchToProps) => wrappedComponent => Vue.
     if(mapDispatchToProps)
     {
       if(typeof mapDispatchToProps !== "function") console.error("mapDispatchToProps is not a function!")
-      else this.dispatchProps = mapDispatchToProps(store.dispatch)
+      else this.dispatchProps = mapDispatchToProps(this.store.dispatch)
     }
     this.update();
     this.store.subscribe(() => this.update())

@@ -1,8 +1,12 @@
 {
   "name": "vue-redux-connect",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "vue-redux-connect provides a Vue component called Connect that takes the redux store as a prop and maps the state and dispatch function to props for a child Vue component.",
   "main": "./dist/index.js",
+  "files": [
+    "dist",
+    "src"
+  ],
   "scripts": {
     "build": "cross-env BABEL_ENV=commonjs babel src --out-dir dist",
     "test": "jest"
