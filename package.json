@@ -1,0 +1,21 @@
+{
+  "name": "vue-redux-connect",
+  "version": "1.0.0",
+  "description": "vue-redux-connect provides a Vue component called Connect that takes the redux store as a prop and maps the state and dispatch function to props for a child Vue component.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "www.github.com/peerhenry/vue-redux-connect"
+  },
+  "keywords": [
+    "vue",
+    "redux",
+    "vue-redux-connect",
+    "vue-redux"
+  ],
+  "author": "PeerHenry",
+  "license": "ISC"
+}
