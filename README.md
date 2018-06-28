@@ -13,15 +13,16 @@ An alternative to this package is [redux-vue-connect](https://github.com/itsazza
 
 In your source code, import the function `connect` using `import { connect } from 'vue-redux-connect'`. Define a function that maps the state of your store to component props `mapStateToProps`. Now you can write:
 
-`const connectedComponent = connect(mapStateToProps)(myComponent)`.
+`const connectedComponent = connect(mapStateToProps)(myComponent)`
 
-If the component also needs to dispatch actions on the store, you can define a function `mapDispatchToProps` and pass it as a second parameter in connect.
+If the component also needs to trigger one or more actions on the store, you can define a function `mapDispatchToProps` and pass it as a second parameter in connect:
 
-`const connectedComponent = connect(mapStateToProps, mapDispatchToProps)(myComponent)`.
+`const connectedComponent = connect(mapStateToProps, mapDispatchToProps)(myComponent)`
 
 ## Example
 
 This example describes a basic store that has an integer as its state, and handles a single action of type 'increment'.
+
 
 `store.js`
 ```js
@@ -32,6 +33,7 @@ const reducer = ( state = 0, action ) => {
 }
 export default createStore( reducer );
 ```
+
 
 `Counter.vue`
 ```Vue
@@ -51,6 +53,7 @@ export default {
 }
 </script>
 ```
+
 
 `App.vue`
 ```Vue
