@@ -19,9 +19,11 @@
   ],
   "author": "PeerHenry",
   "license": "ISC",
-  "dependencies": {
+  "peerDependencies": {
     "redux": "^4.0.0",
     "vue": "^2.5.16"
+  },
+  "dependencies": {
   },
   "devDependencies": {
     "@vue/server-test-utils": "^1.0.0-beta.20",
