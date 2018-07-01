@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { mount } from '@vue/test-utils'
+import { mount, shallowMount } from '@vue/test-utils'
 import { render, renderToString } from '@vue/server-test-utils'
 import { createStore } from 'redux'
 import connect from '../src/connect.js'
@@ -75,53 +75,68 @@ describe('connect', () => {
     const expect2 = expected + '</h1>'
     expect(result).toContain(expect2)
   })
-
   
-  /*it('should pass props from mapDispatchToProps to wrapped component', () => {
+  it('should pass props from mapDispatchToProps to wrapped component', () => {
     // arrange
-    const expected = 42
-    const reducer = ( state = expected, action ) => {
+    const initial = 42
+    const reducer = ( state = initial, action ) => {
+      if(action.type === 'INCR') return state + 1
+      return state
+    }
+    const store = createStore( reducer )
+    const mapStateToProps = state => ({ })
+    const mapDispatchToProps = dispatch => ({ increment: () => dispatch({ type: 'INCR' }) })
+    const dummyComponent = Vue.component('Dummy', {
+      render: function(h){
+        this.increment()  // render triggers increment prop
+      }, 
+      props: [ 'increment' ] 
+    })
+    // act
+    const connectedComponent = connect(mapStateToProps, mapDispatchToProps)(dummyComponent)
+    renderToString(connectedComponent, {
+      propsData: { store: store }
+    })
+    // assert
+    expect(store.getState()).toBe(43)
+  })
+  
+  it('dispatching an action that changes a part of state that component depends on should modify stateProps in Connect', () => {
+    // arrange
+    const initial = 42
+    const reducer = ( state = initial, action ) => {
       if(action.type === 'INCR') return state + 1
       return state
     }
     const store = createStore( reducer )
     const mapStateToProps = state => ({ thing: state })
-    const mapDispatchToProps = dispatch => ({ increment: () => dispatch({type: 'INCR' }) })
-    const dummyComponent = Vue.component('Dummy', { 
-      template: '<h1>{{thing}}</h1>', 
-
-      props: [ 'thing', 'increment' ] 
+    var renderCount = 0
+    const dummyComponent = Vue.component('Dummy', {
+      render: () => { },
+      props: [ 
+        'thing' // prop that comes from redux state
+      ]
     })
-    // act
-    const connectedComponent = connect(mapStateToProps, mapDispatchToProps)(dummyComponent)
-    const result = renderToString(connectedComponent, {
+    const connectedComponent = connect(mapStateToProps)(dummyComponent)
+    expect(renderCount).toBe(0)
+    const mounted = mount(connectedComponent, {
       propsData: { store: store }
     })
+    // act
+    store.dispatch({ type: 'INCR' })
     // assert
-    expect(result).toContain('<h1')
-    const expect2 = expected + '</h1>'
-    expect(result).toContain(expect2)
-
-    fail()  // todo: finish
+    expect( mounted.vm.$data.stateProps.thing ).toBe(43)
   })
 
-  /*
-  it('dispatching an action that changes a part of state that component depends on should trigger a rerender of that component', () => {
-    fail()
-    // todo: implement
-  })
-
-  it('dispatching an action that changes a part of state that component does not depend on should not trigger a rerender of that component', () => {
-    fail()
-    // todo: implement
-  })
-  */
-
+  // todo: 
+  // figure out how to test if a vue component has been rerendered
+  // then you can test that an action that changes a part of state that is not relevant to the component does not trigger a rerender
 })
 
 // Sanity tests
 
 describe('vue test environment', () => {
+
   it('should be able to render props', () => {
     // arrange
     const comp = Vue.component('Dummy', {template: '<h1>{{thing}}</h1>', props: [ 'thing' ] })
@@ -155,4 +170,5 @@ describe('vue test environment', () => {
     expect(result).toContain('<h1')
     expect(result).toContain('BILLY</h1>')
   })
+
 })

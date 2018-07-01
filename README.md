@@ -44,10 +44,8 @@ The connectedComponent requires that the Redux store be passed as a prop. Eg. in
 
 This example describes a basic store that has an integer as its state, and handles a single action of type 'increment'.
 
-&nbsp;
-
+`store.js`
 ``` js
-// store.js
 import { createStore }  from 'redux'
 const reducer = ( state = 0, action ) => {
   if(action.type == 'increment') return state + 1
@@ -57,9 +55,8 @@ export default createStore( reducer );
 ```
 
 &nbsp;
-
+`Counter.vue`
 ``` vue
-// Counter.vue
 <template>
   <div>
     <h1>Value: {{ number }}</h1>
@@ -79,8 +76,8 @@ export default {
 
 &nbsp;
 
+`App.vue`
 ``` vue
-// App.vue
 <template>
   <ConnectedCounter :store="store" />
 </template>
