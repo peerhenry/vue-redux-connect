@@ -13,14 +13,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "www.github.com/peerhenry/vue-redux-connect"
+    "url": "https://github.com/peerhenry/vue-redux-connect"
   },
   "keywords": [
     "vue",
     "vuejs",
     "redux",
     "vue-redux-connect",
-    "vue-redux"
+    "vue-redux",
+    "redux-vue",
+    "flux"
   ],
   "author": "PeerHenry",
   "license": "MIT",
@@ -60,14 +62,19 @@
     "babel-preset-env": "^1.7.0",
     "cross-env": "^5.2.0",
     "jest": "^23.2.0",
-    "regenerator-runtime": "^0.12.0",
-    "vue-server-renderer": "^2.5.16",
-    "vue-template-compiler": "^2.5.16",
     "redux": "^4.0.0",
-    "vue": "^2.5.16"
+    "regenerator-runtime": "^0.12.0",
+    "vue": "^2.5.16",
+    "vue-server-renderer": "^2.5.16",
+    "vue-template-compiler": "^2.5.16"
   },
   "jest": {
     "coverageDirectory": "./coverage/",
-    "collectCoverage": true
+    "collectCoverage": true,
+    "moduleFileExtensions": [
+      "js",
+      "jsx",
+      "vue"
+    ]
   }
 }

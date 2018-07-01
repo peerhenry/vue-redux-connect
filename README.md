@@ -4,14 +4,24 @@ This module provides a function `connect` that can be used to create a Vue compo
 
 This package is inspired by [react-redux](https://github.com/reduxjs/react-redux).
 
-An alternative to this package is [redux-vue-connect](https://github.com/itsazzad/redux-vue-connect).
+You can find a similar, though slightly different, alternative to this package here: [redux-vue-connect](https://github.com/itsazzad/redux-vue-connect).
 
 ## Installation
-`npm install --save vue-redux-connect`, or the short version `npm i -S vue-redux-connect`.
+`npm install --save vue-redux-connect`
+
+or
+
+`npm i -S vue-redux-connect`
+
+[Link to NPM](https://www.npmjs.com/package/vue-redux-connect)
 
 ## Usage
 
-In your source code, import the function `connect` using `import { connect } from 'vue-redux-connect'`. Define a function that maps the state of your store to component props `mapStateToProps`. Now you can write:
+In your source code, import the function `connect` using
+
+`import { connect } from 'vue-redux-connect'`
+
+Define a function that maps the state of your store to component props `mapStateToProps`. Now you can write:
 
 `const connectedComponent = connect(mapStateToProps)(myComponent)`
 
@@ -23,9 +33,10 @@ If the component also needs to trigger one or more actions on the store, you can
 
 This example describes a basic store that has an integer as its state, and handles a single action of type 'increment'.
 
+&nbsp;
 
-`store.js`
-```js
+``` js
+// store.js
 import { createStore }  from 'redux'
 const reducer = ( state = 0, action ) => {
   if(action.type == 'increment') return state + 1
@@ -34,9 +45,10 @@ const reducer = ( state = 0, action ) => {
 export default createStore( reducer );
 ```
 
+&nbsp;
 
-`Counter.vue`
-```Vue
+``` vue
+// Counter.vue
 <template>
   <div>
     <h1>Value: {{ number }}</h1>
@@ -54,9 +66,10 @@ export default {
 </script>
 ```
 
+&nbsp;
 
-`App.vue`
-```Vue
+``` vue
+// App.vue
 <template>
   <ConnectedCounter :store="store" />
 </template>
