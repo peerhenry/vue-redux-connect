@@ -1,5 +1,7 @@
 # vue-redux-connect
 
+[![NPM](https://nodei.co/npm/vue-redux-connect.png)](https://www.npmjs.com/package/vue-redux-connect)
+
 This module provides a function `connect` that can be used to create a Vue component that responds to state changes in a Redux store. The component can also dispatch actions to the store. 
 
 This package is inspired by [react-redux](https://github.com/reduxjs/react-redux).
