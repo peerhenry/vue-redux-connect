@@ -1,5 +1,9 @@
 # vue-redux-connect
 
+Connect a [Redux](https://github.com/reduxjs/redux) store to a [Vue](https://vuejs.org/) component!
+
+[![build status](https://travis-ci.com/peerhenry/vue-redux-connect.svg?branch=master)](https://travis-ci.com/peerhenry/vue-redux-connect)
+
 [![NPM](https://nodei.co/npm/vue-redux-connect.png)](https://www.npmjs.com/package/vue-redux-connect)
 
 This module provides a function `connect` that can be used to create a Vue component that responds to state changes in a Redux store. The component can also dispatch actions to the store. 
@@ -16,6 +20,9 @@ or
 `npm i -S vue-redux-connect`
 
 ## Usage
+### `connect(mapStateToProps, mapDispatchToProps)`
+
+This assumes you are using a module bundler like [Webpack](https://webpack.js.org/).
 
 In your source code, import the function `connect` using
 
@@ -28,6 +35,10 @@ Define a function that maps the state of your store to component props `mapState
 If the component also needs to trigger one or more actions on the store, you can define a function `mapDispatchToProps` and pass it as a second parameter in connect:
 
 `const connectedComponent = connect(mapStateToProps, mapDispatchToProps)(myComponent)`
+
+The connectedComponent requires that the Redux store be passed as a prop. Eg. in a Vue template you would write:
+
+`<ConnectedComponent :store="store"/>`
 
 ## Example
 
