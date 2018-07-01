@@ -15,8 +15,6 @@ or
 
 `npm i -S vue-redux-connect`
 
-[Link to NPM](https://www.npmjs.com/package/vue-redux-connect)
-
 ## Usage
 
 In your source code, import the function `connect` using

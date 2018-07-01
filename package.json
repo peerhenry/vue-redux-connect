@@ -9,7 +9,8 @@
   ],
   "scripts": {
     "build": "cross-env BABEL_ENV=commonjs babel src --out-dir dist",
-    "test": "jest"
+    "test": "jest",
+    "coverage": "codecov"
   },
   "repository": {
     "type": "git",
@@ -60,6 +61,7 @@
     "babel-plugin-transform-es2015-unicode-regex": "^6.3.13",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.7.0",
+    "codecov": "^3.0.2",
     "cross-env": "^5.2.0",
     "jest": "^23.2.0",
     "redux": "^4.0.0",

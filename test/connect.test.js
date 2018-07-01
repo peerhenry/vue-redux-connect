@@ -76,12 +76,36 @@ describe('connect', () => {
     expect(result).toContain(expect2)
   })
 
-  /*
-  it('should pass props from mapDispatchToProps to wrapped component', () => {
-    fail()
-    // toodo: implement
+  
+  /*it('should pass props from mapDispatchToProps to wrapped component', () => {
+    // arrange
+    const expected = 42
+    const reducer = ( state = expected, action ) => {
+      if(action.type === 'INCR') return state + 1
+      return state
+    }
+    const store = createStore( reducer )
+    const mapStateToProps = state => ({ thing: state })
+    const mapDispatchToProps = dispatch => ({ increment: () => dispatch({type: 'INCR' }) })
+    const dummyComponent = Vue.component('Dummy', { 
+      template: '<h1>{{thing}}</h1>', 
+
+      props: [ 'thing', 'increment' ] 
+    })
+    // act
+    const connectedComponent = connect(mapStateToProps, mapDispatchToProps)(dummyComponent)
+    const result = renderToString(connectedComponent, {
+      propsData: { store: store }
+    })
+    // assert
+    expect(result).toContain('<h1')
+    const expect2 = expected + '</h1>'
+    expect(result).toContain(expect2)
+
+    fail()  // todo: finish
   })
 
+  /*
   it('dispatching an action that changes a part of state that component depends on should trigger a rerender of that component', () => {
     fail()
     // todo: implement
