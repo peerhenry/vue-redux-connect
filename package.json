@@ -63,7 +63,7 @@
     "babel-preset-env": "^1.7.0",
     "codecov": "^3.0.2",
     "cross-env": "^5.2.0",
-    "jest": "^23.2.0",
+    "jest": "^24.8.0",
     "redux": "^4.0.0",
     "regenerator-runtime": "^0.12.0",
     "vue": "^2.5.16",
